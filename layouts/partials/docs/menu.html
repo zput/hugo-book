@@ -25,3 +25,6 @@
 {{ with $script.Content }}
   <script>{{ . | safeJS }}</script>
 {{ end }}
+
+<script src="{{ "magic.js" | relURL }}"></script>
+<script src="{{ "dark.js" | relURL }}"></script>
