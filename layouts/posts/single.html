@@ -4,6 +4,29 @@
     <a href="{{ .RelPermalink }}">{{ partial "docs/title.html" . }}</a>
   </h1>
   {{ partial "docs/post-meta" . }}
+
+  {{ if .Params.viz }}
+  <script type="text/javascript" src="https://cdn.bootcss.com/viz.js/1.8.2/viz.js"> </script>
+  <script type="text/javascript">
+  (function(){
+    var vizPrefix = "language-graphviz";
+    Array.prototype.forEach.call(document.querySelectorAll("[class^=" + vizPrefix + "]"), function(x){
+      var engine;
+      x.getAttribute("class").split(" ").forEach(function(cls){
+        if (cls.startsWith(vizPrefix)) {
+          engine = cls.substr(vizPrefix.length);
+        }
+      });
+      var image = new DOMParser().parseFromString(Viz(x.innerText, {format:"svg", engine:engine}), "image/svg+xml");
+      x.parentNode.insertBefore(image.documentElement, x);
+      x.style.display = 'none'
+      x.parentNode.style.backgroundColor = "white"
+    });
+  })();
+  </script>
+  {{ end }}
+
+
   {{- .Content -}}
 </article>
 {{ end }}
