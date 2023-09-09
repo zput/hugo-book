@@ -1,11 +1,35 @@
 {{ if not (.Page.Scratch.Get "graphviz") }}
-<!-- Include mermaid only first time -->
+<!-- Include graphviz only first time -->
 
 <script type="text/javascript" src="https://cdn.bootcss.com/viz.js/1.8.2/viz.js"> </script>
+
 
 {{ .Page.Scratch.Set "graphviz" true }}
 {{ end }}
 
-<p class="graphviz{{ with .Get "class" }} {{ . }}{{ end }}">
-  {{- .Inner -}}
-</p>
+  <p class="graphviz{{ with .Get "class" }} {{ . }}{{ end }}" id="graphviz-pic">
+  </p>
+
+  <script class="graphviz{{ with .Get "class" }} {{ . }}{{ end }}" type="text/javascript">
+    (function() {
+      srcG = "{{- .Inner -}}"
+      image = Viz("digraph g { a -> b; }", { format: "png-image-element" });
+      // image = Viz("digraph g { a -> b; }", { format: "png-image-element" });
+      // document.write(Date());
+      // document.getElementById("graphviz-pic").innerHTML = "段落已修改。";
+      document.getElementById("graphviz-pic").appendChild(image);
+
+
+
+      // {{- .Inner -}}
+      // document.write(image);
+      // document.body.appendChild(image);
+      // console.log(x)
+      // var svg = Viz( "{{- .Inner -}}", {format: "svg",});
+      // var image = new DOMParser().parseFromString(svg, "image/svg+xml");
+      // x.style.display = 'none';
+      // x.parentNode.style.backgroundColor = "white";
+  }());
+  </script>
+
+
