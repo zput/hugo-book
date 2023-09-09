@@ -1,0 +1,11 @@
+{{ if not (.Page.Scratch.Get "graphviz") }}
+<!-- Include mermaid only first time -->
+
+<script type="text/javascript" src="https://cdn.bootcss.com/viz.js/1.8.2/viz.js"> </script>
+
+{{ .Page.Scratch.Set "graphviz" true }}
+{{ end }}
+
+<p class="graphviz{{ with .Get "class" }} {{ . }}{{ end }}">
+  {{- .Inner -}}
+</p>

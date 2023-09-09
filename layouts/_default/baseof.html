@@ -81,3 +81,43 @@
 {{ define "toc" }}
   {{ partial "docs/toc" . }}
 {{ end }}
+
+
+  <script type="text/javascript" src="https://cdn.bootcss.com/viz.js/1.8.2/viz.js"> </script>
+  <script type="text/javascript">
+  (function() {
+    var vizPrefix = "language-viz-";
+    Array.prototype.forEach.call(document.querySelectorAll("[class^=" + vizPrefix + "]"), function(x) {
+  
+      console.log(x)
+  
+      var engine;
+      x.getAttribute("class").split(" ").forEach(function(cls) {
+        if (cls.startsWith(vizPrefix)) {
+          engine = cls.substr(vizPrefix.length);
+        }
+      });
+  
+      console.log('------------MIDDLE--------')
+      var svg = Viz(x.innerText, {
+        format: "svg",
+        engine: engine
+      });
+      // Parse the SVG string into an XML document
+      var image = new DOMParser().parseFromString(svg, "image/svg+xml");
+      // Set the viewBox attribute to allow the image to scale automatically
+      // image.documentElement.setAttribute("viewBox", "0 0 " + image.documentElement.getAttribute("width") + " " + image.documentElement.getAttribute("height"));
+      // Add CSS styles to make the graph scale with its parent element
+      image.documentElement.setAttribute("style", "max-width:100%; max-height:100%;");
+      x.parentNode.insertBefore(image.documentElement, x);
+      x.style.display = 'none';
+      x.parentNode.style.backgroundColor = "white";
+  
+      // Set container dimensions to match SVG dimensions
+      x.style.width = image.documentElement.getAttribute("width") + "px";
+      x.style.height = image.documentElement.getAttribute("height") + "px";
+  
+      console.log('--------------END------')
+    });
+  })();
+  </script>

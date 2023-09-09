@@ -8,37 +8,6 @@
   {{- .Content -}}
 </article>
 
-
-
-<div class="eof">--EOF--</div>
-
-  <script type="text/javascript" src="https://cdn.bootcss.com/viz.js/1.8.2/viz.js"> </script>
-  <script type="text/javascript">
-  (function(){
-    var vizPrefix = "language-viz-";
-    Array.prototype.forEach.call(document.querySelectorAll("[class^=" + vizPrefix + "]"), function(x){
-
-      console.log(x)
-
-      var engine;
-      x.getAttribute("class").split(" ").forEach(function(cls){
-        if (cls.startsWith(vizPrefix)) {
-          engine = cls.substr(vizPrefix.length);
-        }
-      });
-
-      console.log('------------MIDDLE--------')
-      var image = new DOMParser().parseFromString(Viz(x.innerText, {format:"svg", engine:engine}), "image/svg+xml");
-      x.parentNode.insertBefore(image.documentElement, x);
-      x.style.display = 'none'
-      x.parentNode.style.backgroundColor = "white"
-
-      console.log('--------------END------')
-    });
-  })();
-  </script>
-
-
 {{ end }}
 
 {{ define "toc" }}
