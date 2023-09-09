@@ -1,5 +1,17 @@
 {{ define "main" }}
 
+<article class="markdown">
+  <h1>
+    <a href="{{ .RelPermalink }}">{{ partial "docs/title.html" . }}</a>
+  </h1>
+  {{ partial "docs/post-meta" . }}
+  {{- .Content -}}
+</article>
+
+
+
+<div class="eof">--EOF--</div>
+
   <script type="text/javascript" src="https://cdn.bootcss.com/viz.js/1.8.2/viz.js"> </script>
   <script type="text/javascript">
   (function(){
@@ -27,13 +39,6 @@
   </script>
 
 
-<article class="markdown">
-  <h1>
-    <a href="{{ .RelPermalink }}">{{ partial "docs/title.html" . }}</a>
-  </h1>
-  {{ partial "docs/post-meta" . }}
-  {{- .Content -}}
-</article>
 {{ end }}
 
 {{ define "toc" }}
