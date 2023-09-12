@@ -13,6 +13,9 @@
   <script class="graphviz{{ with .Get "class" }} {{ . }}{{ end }}" type="text/javascript">
     (function() {
       srcG = "{{- .Inner -}}"
+      srcG = srcG.replace(/^\s*```graphviz/, "");
+      srcG = srcG.replace(/```\s*$/, "");
+      // console.log(str); // 输出 "Hello World"
 
       image = Viz(srcG, { format: "png-image-element" });
       // image = Viz("digraph g { a -> b; }", { format: "png-image-element" });
